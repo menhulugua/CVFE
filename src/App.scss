@@ -1,3 +1,38 @@
 body {
-  color: red;
+  background-color: #000;
+}
+
+.container {
+  width: 730px;
+  height: 784px;
+  background-color: #fff;
+  margin: 50px auto;
+  padding: 40px;
+}
+
+.toggle-button {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #aaa;
+  position: relative;
+  .text {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+  }
+  .highlight {
+    position: absolute;
+    background-color: #fff;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    &.right {
+      left: auto;
+      right: 0;
+    }
+  }
 }
