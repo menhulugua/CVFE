@@ -15,6 +15,7 @@ export default function App() {
   const [showing, setShowing] = useState(true);
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
+  const [firstLoad, setFirstLoad] = useState(true); // disable button animation on first load
   useEffect(() => {
     setData(jsondata);
     const team = {};
@@ -29,12 +30,16 @@ export default function App() {
       })
     }
     teamArray.sort((a, b) => a.name < b.name);
-    console.log(teamArray);
     setData2(teamArray);
   }, [data]);
 
   const text1 = <span><img src="./icon-age.png" alt="icon-age" /> AGE</span>;
   const text2 = <span><img src="./icon-footy.png" alt="icon-footy" /> FOOTY</span>;
+
+  const handleClick = () => {
+    setShowing((previous => !previous));
+    setFirstLoad(false);
+  }
 
   return (
     <div className="container">
@@ -53,7 +58,7 @@ export default function App() {
         </Chart>
       </div>
       <div className="button-box">
-        <span>Chart showing</span><ToggleButton text1={text1} text2={text2} current={showing} handleClick={() => {setShowing((previous => !previous))}} />
+        <span>Chart showing</span><ToggleButton text1={text1} text2={text2} current={showing} firstLoad={firstLoad} handleClick={handleClick} />
       </div>
       <table  cellSpacing="0" cellPadding="0" className="table">
         <thead>
