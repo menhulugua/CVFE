@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import {
   Chart,
   BarSeries,
-  Title,
   ArgumentAxis,
   ValueAxis,
 } from '@devexpress/dx-react-chart-material-ui';
@@ -29,14 +28,18 @@ export default function App() {
         count: value
       })
     }
+    teamArray.sort((a, b) => a.name < b.name);
     console.log(teamArray);
     setData2(teamArray);
-  }, []);
+  }, [data]);
+
+  const text1 = <span><img src="./icon-age.png" alt="icon-age" /> AGE</span>;
+  const text2 = <span><img src="./icon-footy.png" alt="icon-footy" /> FOOTY</span>;
 
   return (
     <div className="container">
       <div className="chart">
-      <Chart
+      <Chart className="chart"
           data={showing? data : data2}
         >
           <ArgumentAxis />
@@ -49,22 +52,28 @@ export default function App() {
           <Animation />
         </Chart>
       </div>
-      <span>Chart showing</span><ToggleButton text1="AGE" text2="FOOTY" current={showing} handleClick={() => {setShowing((previous => !previous))}} />
-      <table className="table">
-        <tr className="header">
-          <th>Name</th>
-          <th>Age</th>
-          <th>FootyTeam</th>
-        </tr>
-        {data.map((people, index) => {
-           return (
-            <tr key={index} className="row">
-              <td>{people.Name}</td>
-              <td>{people.Age}</td>
-              <td>{people.FootyTeam}</td>
-            </tr>
-           ); 
-        })}
+      <div className="button-box">
+        <span>Chart showing</span><ToggleButton text1={text1} text2={text2} current={showing} handleClick={() => {setShowing((previous => !previous))}} />
+      </div>
+      <table  cellSpacing="0" cellPadding="0" className="table">
+        <thead>
+          <tr className="header">
+            <th>Name</th>
+            <th>Age</th>
+            <th>FootyTeam</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((people, index) => {
+            return (
+              <tr key={index} className="row">
+                <td>{people.Name}</td>
+                <td>{people.Age}</td>
+                <td>{people.FootyTeam}</td>
+              </tr>
+            ); 
+          })}
+        </tbody>
       </table>
     </div>
   );
